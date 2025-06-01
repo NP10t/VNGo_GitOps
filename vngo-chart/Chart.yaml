@@ -1,0 +1,21 @@
+apiVersion: v2
+name: vngo
+description: A Helm chart for deploying Vngo application with MySQL
+version: 0.1.0
+appVersion: "1.0.0"
+type: application
+keywords:
+  - vngo
+  - spring-boot
+  - mysql
+maintainers:
+  - name: Nguyen Phuc
+    email: phuc.cntn.hcmus@gmail.com
+home: https://github.com/nguyenphuc4444/vngo
+sources:
+  - https://github.com/nguyenphuc4444/vngo
+dependencies:
+  - name: mysql
+    version: "10.3.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: mysql.enabled

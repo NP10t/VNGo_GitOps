@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-vngo
+  labels:
+    app: {{ .Release.Name }}-vngo
+spec:
+  replicas: {{ .Values.vngo.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-vngo
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-vngo
+    spec:
+      containers:
+      - name: vngo
+        image: "{{ .Values.vngo.image.repository }}:{{ .Values.vngo.image.tag }}"
+        imagePullPolicy: {{ .Values.vngo.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_URL
+          value: {{ .Values.env.DB_URL | quote }}
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vngo-secret
+              key: db-username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vngo-secret
+              key: db-password
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
+        - name: JWT_SIGNER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: vngo-secret
+              key: jwt-signer-key
