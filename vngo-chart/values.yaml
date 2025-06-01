@@ -6,10 +6,8 @@ vngo:
     pullPolicy: IfNotPresent
   replicaCount: 1
   service:
-    type: ClusterIP
+    type: LoadBalancer
     port: 8080
-  env:
-    springProfile: dev
 
 # MySQL settings
 mysql:
@@ -18,17 +16,11 @@ mysql:
     repository: mysql
     tag: "8.0"
     pullPolicy: IfNotPresent
-  auth:
-    rootPassword: my_root_password
-    database: vngo_db
-    username: vngo_user
-    password: vngo_password
   service:
     port: 3306
+  auth:
+    database: vngo_db
 
 # Application environment variables
 env:
-  DB_URL: "jdbc:mysql://vngo-mysql:3306/vngo_db"
-  DB_USERNAME: "vngo_user"
-  DB_PASSWORD: "vngo_password"
-  SPRING_PROFILES_ACTIVE: ""
+  SPRING_PROFILES_ACTIVE: "default"

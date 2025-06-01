@@ -22,7 +22,10 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_URL
-          value: {{ .Values.env.DB_URL | quote }}
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}-vngo-config
+              key: DB_URL
         - name: DB_USERNAME
           valueFrom:
             secretKeyRef:

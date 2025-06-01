@@ -15,6 +15,8 @@ kubectl logs -l app=vngo-vngo -n default
 helm uninstall vngo --namespace default
 helm install vngo ./vngo-chart --namespace default
 
+helm upgrade vngo ./vngo-chart --namespace default
+
 kubectl exec -it vngo-mysql-77c9b5b777-pqz74 -n default -- bash
 
 kubectl get all

@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-vngo-config
-data:
-  SPRING_PROFILES_ACTIVE: {{ .Values.vngo.env.springProfile | quote }}
-  SPRING_DATASOURCE_URL: {{ .Values.env.SPRING_DATASOURCE_URL | quote }}
